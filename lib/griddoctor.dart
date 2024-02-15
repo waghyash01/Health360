@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'Doctor.dart';
 import 'newuser.dart';
 class Griddoctor extends StatelessWidget {
   Griddoctor({Key? key});
@@ -26,7 +27,7 @@ class Griddoctor extends StatelessWidget {
                     onTap: () {
                       if(i==0){
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return Newuser();
+                          return Doctorpage();
                         }));
                       }
 

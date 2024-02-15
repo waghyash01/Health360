@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'aesAlgorithm.dart';
 
 class AESEncryptionPage extends StatefulWidget {
@@ -19,13 +20,14 @@ class _AESEncryptionPageState extends State<AESEncryptionPage> {
   final TextEditingController _medicalHistoryController = TextEditingController();
 
   CollectionReference _encryptedDataCollection =
-  FirebaseFirestore.instance.collection('encrypted_data');
+  FirebaseFirestore.instance.collection('Patients');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('AES Encryption Demo'),
+        backgroundColor: Colors.greenAccent,
+        title: Text('Enter Patient Details'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -74,8 +76,12 @@ class _AESEncryptionPageState extends State<AESEncryptionPage> {
               ),
               SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: _encryptData,
-                child: Text('Encrypt and Save'),
+                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.lightBlueAccent)),
+                onPressed: () async {
+                  await _encryptData();
+                  await _createFirebaseUser();
+                },
+                child: Text('Encrypt and Save',style: TextStyle(color: Colors.black)),
               ),
             ],
           ),
@@ -84,7 +90,7 @@ class _AESEncryptionPageState extends State<AESEncryptionPage> {
     );
   }
 
-  void _encryptData() {
+  Future<void> _encryptData() async {
     String fullName = _fullNameController.text;
     int age = int.tryParse(_ageController.text) ?? 0;
     String gender = _genderController.text;
@@ -105,7 +111,7 @@ class _AESEncryptionPageState extends State<AESEncryptionPage> {
     String encryptedAge = AESAlgorithm.encryptData(age.toString());
 
     // Storing encrypted data in Firestore
-    _storeEncryptedData(
+    await _storeEncryptedData(
       email,
       {
         'Full Name': encryptedFullName,
@@ -121,10 +127,27 @@ class _AESEncryptionPageState extends State<AESEncryptionPage> {
     );
   }
 
-  void _storeEncryptedData(String email, Map<String, dynamic> encryptedData) async {
+  Future<void> _storeEncryptedData(String email, Map<String, dynamic> encryptedData) async {
     await _encryptedDataCollection.doc(email).set(encryptedData);
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text('Data encrypted and saved successfully!'),
     ));
+  }
+
+  Future<void> _createFirebaseUser() async {
+    try {
+      String email = _emailController.text;
+      String password = _patientIdController.text;
+
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      print('User created: ${userCredential.user!.uid}');
+    } catch (e) {
+      print('Error creating user: $e');
+      // Handle the error as needed
+    }
   }
 }
