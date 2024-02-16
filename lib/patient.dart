@@ -27,7 +27,7 @@ class Patientpage extends StatelessWidget {
                 )),
             InkWell(
               onTap: () {
-                print("hello");
+                
               },
               child: Card(
                 child: ListTile(

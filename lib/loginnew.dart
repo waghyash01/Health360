@@ -88,13 +88,11 @@ class PatientLoginPage extends StatelessWidget {
       var result = await FirebaseFirestore.instance.collection(collection).where('Email', isEqualTo: email).where('Patient ID', isEqualTo: patientId).get();
 
       if (result.docs.isNotEmpty) {
-        // Patient found, navigate to HomeScreen
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => Patientpage()),
         );
       } else {
-        // Patient not found, show error
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Invalid login credentials. Patient not found.'),
         ));
@@ -149,13 +147,11 @@ class DoctorLoginPage extends StatelessWidget {
       var result = await FirebaseFirestore.instance.collection(collection).where('Name', isEqualTo: name).where('UID', isEqualTo: uid).get();
 
       if (result.docs.isNotEmpty) {
-        // Doctor found, navigate to HomeScreen
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => Doctorpage()),
         );
       } else {
-        // Doctor not found, show error
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Invalid login credentials. Doctor not found.'),
         ));

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'DecryptPatientData.dart';
 class Grids extends StatelessWidget {
   Grids({Key? key});
 
@@ -21,7 +23,22 @@ class Grids extends StatelessWidget {
 
                 InkWell(
                   onTap: () {
-                    print("hello yash");
+                    if(i==0)
+                      {
+                        print("IN PROGRESS");
+                      }
+                    else if(i==1)
+                      {
+                        print("IN PROGRESS");
+                      }
+                      else if(i==2)
+                        {
+                          print("IN PROGRESS");
+                        }
+                      else
+                        {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AESDecryptionPage()));
+                        }
                   },
                   child: Image.asset(
                     'assets/images/${img[i]}.png',
