@@ -21,71 +21,77 @@ class _WritePrescriptionPageState extends State<WritePrescriptionPage> {
         backgroundColor: Colors.greenAccent,
         title: Text('Write Prescription'),
       ),
-      body: Container(
-        margin: EdgeInsets.only(top: 15),
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextField(
-                controller: emailController,
-                decoration: InputDecoration(labelText: 'Your Email'),
-              ),
-              SizedBox(height: 16.0),
-              TextField(
-                controller: patientIDController,
-                decoration: InputDecoration(labelText: 'Patient ID'),
-              ),
-              SizedBox(height: 16.0),
-              TextField(
-                controller: prescriptionController,
-                decoration: InputDecoration(labelText: 'Prescription Details'),
-              ),
-              SizedBox(height: 16.0),
-              TextField(
-                controller: checkupDateController,
-                decoration: InputDecoration(labelText: 'Checkup Date'),
-              ),
-              SizedBox(height: 16.0),
-              TextField(
-                controller: doctorNameController,
-                decoration: InputDecoration(labelText: 'Doctor Name'), // Add doctor name field
-              ),
-              SizedBox(height: 16.0),
-              ElevatedButton(
-                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.lightBlueAccent)),
-                onPressed: () {
-                  validateAndWritePrescription(context);
-                },
-                child: Text('Submit Prescription', style: TextStyle(color: Colors.black)),
-              ),
-              SizedBox(height: 16.0),
-              ElevatedButton(
-                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.lightBlueAccent)),
-                onPressed: () {
-                  // Check if the entered email and patient ID match before navigating
-                  validatePatient(emailController.text, patientIDController.text).then((isValid) {
-                    if (isValid) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => PrescriptionHistoryPage(
-                          email: emailController.text,
-                          patientID: patientIDController.text,
-                        )),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Invalid email or patient ID.'),
-                        ),
-                      );
-                    }
-                  });
-                },
-                child: Text('History', style: TextStyle(color: Colors.black)),
-              ),
-            ],
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.only(top: 15),
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextField(
+                  controller: emailController,
+                  decoration: InputDecoration(labelText: 'Your Email'),
+                ),
+                SizedBox(height: 16.0),
+                TextField(
+                  controller: patientIDController,
+                  decoration: InputDecoration(labelText: 'Patient ID'),
+                ),
+                SizedBox(height: 16.0),
+                TextField(
+                  controller: prescriptionController,
+                  decoration: InputDecoration(labelText: 'Prescription Details'),
+                ),
+                SizedBox(height: 16.0),
+                TextField(
+                  controller: checkupDateController,
+                  decoration: InputDecoration(labelText: 'Checkup Date'),
+                ),
+                SizedBox(height: 16.0),
+                TextField(
+                  controller: doctorNameController,
+                  decoration: InputDecoration(labelText: 'Doctor Name'), // Add doctor name field
+                ),
+                SizedBox(height: 16.0),
+                ElevatedButton(
+                  style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.lightBlueAccent)),
+                  onPressed: () {
+                    validateAndWritePrescription(context);
+                  },
+                  child: Text('Submit Prescription', style: TextStyle(color: Colors.black)),
+                ),
+                SizedBox(height: 16.0),
+                ElevatedButton(
+                  style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.lightBlueAccent)),
+                  onPressed: () {
+                   // print("HISTORY DISABLED");
+                    //Check if the entered email and patient ID match before navigating
+                    validatePatient(
+                        emailController.text, patientIDController.text).then((
+                        isValid) {
+                      if (isValid) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>
+                              PrescriptionHistoryPage(
+                                email: emailController.text,
+                                patientID: patientIDController.text,
+                              )),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Invalid email or patient ID.'),
+                          ),
+                        );
+                      }
+                    });
+                  },
+                  child: Text(' Prescription History', style: TextStyle(color: Colors.black)),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'about.dart';
 import 'grid.dart';
 import 'griddoctor.dart';
 import 'gridregulatory.dart';
+import 'helppage.dart';
+import 'settings.dart';
 
 class Doctorpage extends StatelessWidget {
   const Doctorpage({super.key});
@@ -29,7 +32,7 @@ class Doctorpage extends StatelessWidget {
                 )),
             InkWell(
               onTap: () {
-                print("hello");
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>AboutPage()));
               },
               child: Card(
                 child: ListTile(
@@ -39,7 +42,7 @@ class Doctorpage extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                print("hello");
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>HelpPage()));
               },
               child: Card(
                 child: ListTile(
@@ -50,6 +53,7 @@ class Doctorpage extends StatelessWidget {
             InkWell(
               onTap: () {
                 print("hello");
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingsPage()));
               },
               child: Card(
                 child: ListTile(

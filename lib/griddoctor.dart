@@ -75,7 +75,7 @@ class Griddoctor extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                Text('Data Analytics',style: GoogleFonts.pacifico(),)
+                Text('DISHA Guidelines',style: GoogleFonts.pacifico(),)
               ],
             ),
           ),

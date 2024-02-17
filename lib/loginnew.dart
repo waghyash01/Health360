@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sampleandro/Doctor.dart';
 import 'package:sampleandro/patient.dart';
 
+import 'Guidelines.dart';
+
 class UserTypeSelectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,7 @@ class UserTypeSelectionPage extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
+                //print("hello");
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => PatientLoginPage()),
@@ -76,7 +79,7 @@ class PatientLoginPage extends StatelessWidget {
             SizedBox(height: 8.0),
             TextField(
               controller: loginPatientIdController,
-              decoration: InputDecoration(labelText: 'Patient ID'),
+              decoration: InputDecoration(labelText: 'Password'),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
@@ -135,7 +138,7 @@ class DoctorLoginPage extends StatelessWidget {
             SizedBox(height: 8.0),
             TextField(
               controller: loginUidController,
-              decoration: InputDecoration(labelText: 'Doctor UID'),
+              decoration: InputDecoration(labelText: 'Password'),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
@@ -158,7 +161,7 @@ class DoctorLoginPage extends StatelessWidget {
       if (result.docs.isNotEmpty) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Doctorpage()),
+          MaterialPageRoute(builder: (context) => GuidelinesPage()),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
